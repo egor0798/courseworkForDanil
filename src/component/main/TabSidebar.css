@@ -1,0 +1,39 @@
+#menuButton {
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    right: 0.6vw;
+}
+
+
+.activeInd{
+    background: red !important;
+    color: white!important;
+    font-weight: bolder!important;
+}
+
+.ui.vertical.menu {
+    width: 100%;
+}
+
+
+.pusher{
+    height: 100%!important;
+}
+
+
+.ui.segment.pushable{
+    height: 100%!important;
+}
+
+.ui.segment {
+    margin: 0;
+    padding: 0;
+}
+
+
+.ui.attached.segment {
+    border-bottom: 0;
+}
+
+

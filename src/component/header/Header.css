@@ -1,0 +1,36 @@
+#title_logo{
+    margin-right: 5vw;
+    background: black;
+}
+
+#logo{
+    height: 4em;
+    width: auto;
+}
+
+#navBar {
+    margin-bottom: 0;
+    width: 100vw;
+    border-radius: 0;
+    height: 4em;
+    position: relative;
+    background: black;
+}
+
+
+.item{
+    height: 100%;
+}
+
+.navButton:hover{
+    background: rgba(255, 54, 141, 0.72) !important;
+}
+
+.right{
+    height: 100%;
+    float: right;
+    display: flex;
+    position: absolute;
+    right: 0;
+}
+

@@ -1,0 +1,14 @@
+.App {
+    overflow: hidden;
+    height: 100vh;
+}
+
+#flexContainer {
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#appWrapper{
+    flex:1;
+}
