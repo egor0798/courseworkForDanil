@@ -120,7 +120,7 @@ class WSConnectionHandler extends Component{
             this.reconnect();
         }
         return(
-            <div>
+            <div style={{display:'none'}}>
                 <p style={{display:"hidden"}}>Connecion: {this.props.connection_id}</p>
                 <Button secondary onClick={this.click}>DEB</Button>
             </div>

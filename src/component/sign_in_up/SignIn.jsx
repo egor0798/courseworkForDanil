@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import {Button} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import {Button, Form} from "semantic-ui-react";
 import store from '../../store';
 import {clearErr} from "../../action/error-action";
-import {register} from "../../api/user-api";
+import {login_try, register} from "../../api/user-api";
 import {withRouter} from "react-router-dom"
 
 class SignIn extends Component{
@@ -18,7 +18,8 @@ class SignIn extends Component{
     }
 
     componentWillMount(){
-        if (this.props.cookie.get('session_username') !== '')
+        debugger;
+        if (this.props.cookie.get('session_username'))
             this.props.history.push('/');
     }
 
@@ -36,7 +37,7 @@ class SignIn extends Component{
         this.setState({submitted:true});
         store.dispatch(clearErr());
         if(this.state.login && this.state.password) {
-            register(this.state.login, this.props.history);
+            login_try(this.state.login, this.state.password,this.props.history, this.props.cookie);
         }
     };
 
@@ -51,24 +52,28 @@ class SignIn extends Component{
         };
         const {login, password, submitted} = this.state;
         return(
-            <div>
+            <div style={{width:'30%', marginLeft:'5vw', marginTop:'5vh'}}>
                 <div style={headerMsg}>{this.props.message}</div>
-                <form name="signUp" method="post" onSubmit={this.handleSubmit}>
-                    <p>login<br/>
-                        <input type="text" name='login' onChange={this.onChange} value={login}/>
+                <Form>
+                    <Form.Field>
+                        <label>Username</label>
+                        <input size='large' name='login' value={login} onChange={this.onChange}/>
                         { submitted && !login && <div style={help_block}>login is required</div>}
-                    </p>
-                    <p>password<br/>
-                        <input type="password" name='password' onChange={this.onChange} value={password}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Password</label>
+                        <input type='password' size='large' name='password' value={password} onChange={this.onChange}/>
                         { submitted && !password && <div style={help_block}>password is required</div>}
-                    </p>
-                    <p><Button primary>Sign In</Button></p>
-                </form>
+                    </Form.Field>
+                    <Button type='submit' onClick={this.handleSubmit}>Submit</Button>
+                </Form>
 
                 <h1>Not registered?</h1>
-                <Button secondary>
-                    <Link to="/register">Register</Link>
-                </Button>
+                <Link to="/register">
+                    <Button secondary>
+                        Register
+                    </Button>
+                </Link>
             </div>
 
         )

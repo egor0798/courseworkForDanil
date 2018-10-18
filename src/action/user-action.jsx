@@ -4,3 +4,9 @@ export function setUserId(id){
         id
     }
 }
+
+export function clearUserId(){
+    return {
+        type: "CLEAR_USER_ID"
+    }
+}

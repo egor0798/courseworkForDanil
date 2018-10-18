@@ -3,9 +3,11 @@ import {withCookies} from "react-cookie"
 import {getConnections, getUserId} from "../../api/websocket-api";
 import WSConnectionHandler from "./WSConnectionHandler";
 import {connect} from "react-redux";
+import {withRouter} from "react-router";
 import store from "../../store";
 import {Button} from "semantic-ui-react";
 import {clearAllTables} from "../../action/database-action";
+import {setUserId} from "../../action/user-action";
 
 
 class MainPage extends Component{
@@ -13,10 +15,12 @@ class MainPage extends Component{
         super(props);
         getConnections(this.props.cookies.get("session_username"), this.props.cookies.get("session_password"));
         getUserId();
-
+        this.click = this.click.bind(this);
     }
 
     componentDidMount(){
+        if (!this.props.cookies.get('session_username'))
+            this.props.history.push('/login');
         store.subscribe(() => this.forceUpdate());
     }
 
@@ -44,8 +48,13 @@ class MainPage extends Component{
             return this.props.tables[this.props.active_table].name;
     };
 
-    click = () => {
-        console.log(this.props);
+    click(){
+        // this.props.cookies.set('session_username', 'fuck4', { path: '/' } );
+        // this.props.cookies.set('session_password', '1', { path: '/' } );
+        // debugger;
+        // store.dispatch(setUserId(24));
+        this.props.cookies.remove(("session_username"));
+        this.props.cookies.remove(("session_password"));
         debugger;
     };
 
@@ -83,4 +92,4 @@ const mapStateToProps = (store) => {
     }
 };
 
-export default withCookies(connect(mapStateToProps)(MainPage));
+export default withRouter(withCookies(connect(mapStateToProps)(MainPage)));
