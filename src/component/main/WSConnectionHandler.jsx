@@ -39,6 +39,13 @@ class WSConnectionHandler extends Component{
         this.parseSocketMessage = this.parseSocketMessage.bind(this);
     }
 
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
     parseSocketMessage(data){
         let parsed = JSON.parse(data);
         if(data.startsWith('{"tables"')){
@@ -66,7 +73,6 @@ class WSConnectionHandler extends Component{
             console.log('Code: ' + event.code + ' причина: ' + event.reason);
         };
         socket.onmessage = (event) => {
-            console.log(event.data);
             if(event.data.startsWith('{'))
                 this.parseSocketMessage(event.data);
             else {
@@ -106,6 +112,17 @@ class WSConnectionHandler extends Component{
             socket.send(query_data);
         })
     };
+
+    sendQuery = (tablename, id) => {
+        let query_data = JSON.stringify({
+            "query": "DELETE FROM " + tablename +" WHERE id=" + id
+        });
+        // console.log(query_data);
+        
+    };
+
+
+
 
 
 
